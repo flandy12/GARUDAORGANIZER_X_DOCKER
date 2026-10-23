@@ -191,9 +191,9 @@ const HomePage = () => {
                   </div>
 
                   <div>
-                    <h1 className="mb-3 text-slate-700 xl:text-xl lg:text-xl text-lg font-semibold mt-5 line-clamp-2 xl:px-0 lg:px-0 md:px-0 px-0">
+                    <h3 className="mb-3 text-slate-700 xl:text-xl lg:text-xl text-lg font-semibold mt-5 line-clamp-2 xl:px-0 lg:px-0 md:px-0 px-0">
                       {value.title}
-                    </h1>
+                    </h3>
                   </div>
                 </div>
               ))
@@ -308,6 +308,16 @@ const HomePage = () => {
     let [counts, setCountS] = useState(0);
     let carousel_item = document.querySelectorAll(".carousel-item");
 
+    const HeadlineTitle = ({ value, primary }) => {
+      const Tag = primary ? "h1" : "div";
+      return (
+        <Tag
+          className="xl:text-5xl lg:text-3xl text-3xl xl:leading-[53px] lg:leading-[39px] leading-[39px] font-bold text-left text-headline-benner bounce-top pe-10 text-slate-700"
+          dangerouslySetInnerHTML={createMarkup(value)}
+        />
+      );
+    };
+
     useEffect(() => {
       if (counts < carousel_item.length) {
         let interval = setInterval(() => {
@@ -341,10 +351,7 @@ const HomePage = () => {
               }`}
               key={key}>
               <div className="xl:space-y-5 lg:space-y-5 space-y-2 relative ">
-                <div
-                  className={`xl:text-5xl lg:text-3xl text-3xl xl:leading-[53px] lg:leading-[39px] leading-[39px] font-bold text-left text-headline-benner bounce-top pe-10 text-slate-700`}>
-                  {<div dangerouslySetInnerHTML={createMarkup(value.title)} />}
-                </div>
+                <HeadlineTitle value={value.title} primary={key === 0} />
 
                 <div
                   className={`mr-10 text-description-benner slide-right xl:pr-14 lg:pr-14 md:pr-4`}
@@ -365,7 +372,7 @@ const HomePage = () => {
                   />
                   <img
                     src={`${process.env.REACT_APP_URL_IMG}${value.image}`}
-                    alt="benners-headline"
+                    alt="Layanan event profesional Garuda Organizer"
                     className={`rounded-xl block w-full h-full  ${
                       counts === key ? "fade-in" : "fade-out"
                     } `}
@@ -383,17 +390,20 @@ const HomePage = () => {
   return (
     <>
       <SEO
-        title={
-          "Garuda Organizer - Perusahaan Profesional Di Bidang Jasa Event Organizer (EO) Jakarta"
-        }
-        meta_description={
-          "Garuda Organizer adalah perusahaan profesional di bidang Jasa Event Organizer (EO) dan Penyelenggara Acara di Jakarta dengan konsep unik dan dokumentasi lengkap"
-        }
-        meta_keywords={
-          "eo jakarta, eo indonesia, event organizer, event online, event management"
-        }
-        author={"Garuda Organizer"}
-        url={window.location.href}
+        title="Event Organizer Jakarta Profesional | Garuda Organizer"
+        meta_description="Garuda Organizer menyediakan jasa event organizer profesional di Jakarta untuk MICE, recruitment event, corporate hiring, digital services, dan aktivasi brand."
+        meta_keywords="event organizer Jakarta, EO Jakarta, jasa event organizer, MICE Indonesia, recruitment event, corporate event, event management"
+        canonical="/"
+        schema={{
+          "@type": "WebSite",
+          "@id": "https://www.garudaorganizer.com/#website",
+          url: "https://www.garudaorganizer.com",
+          name: "Garuda Organizer",
+          publisher: {
+            "@id": "https://www.garudaorganizer.com/#organization",
+          },
+          inLanguage: "id-ID",
+        }}
       />
 
       {loading === true ? (

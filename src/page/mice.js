@@ -44,12 +44,11 @@ const MicePage = () => {
     return (
      <>
         <SEO 
-            title={'Garuda Organizer'}
-            meta_description={''}
-            meta_keywords={''}
-            author={'Garuda Organizer'}
-            url={window.location.href}
-            og_image={`/public/favicon.ico`}
+            title="Jasa MICE & Brand Activation | Garuda Organizer"
+            meta_description="Jasa MICE profesional untuk meeting, incentive, convention, exhibition, dan brand activation dengan konsep kreatif serta eksekusi menyeluruh."
+            meta_keywords="jasa MICE Jakarta, meeting incentive convention exhibition, brand activation"
+            canonical="/service/mice"
+            og_image={banner || "/images/asset/mice-bg.jpg"}
             />  
         {
               loading === false ? (

@@ -43,12 +43,11 @@ const RecruitmentPage = () => {
     return (
        <>
         <SEO 
-            title={'Garuda Organizer'}
-            meta_description={''}
-            meta_keywords={''}
-            author={'Garuda Organizer'}
-            url={window.location.href}
-            og_image={`/public/favicon.ico`}
+            title="Recruitment Event Profesional | Garuda Organizer"
+            meta_description="Solusi recruitment event profesional untuk job fair, campus hiring, dan employer branding dengan pelaksanaan acara yang terintegrasi."
+            meta_keywords="recruitment event, job fair organizer, campus hiring, employer branding"
+            canonical="/service/recruitment-event"
+            og_image={banner || "/images/asset/recruitment-bg.jpg"}
             />
         {
              loading === false ? (

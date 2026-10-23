@@ -1,7 +1,14 @@
 import { Link } from "react-router-dom"
+import SEO from "../../compoments/seo";
 
 const NotFound = () => {
     return (
+      <>
+        <SEO
+          title="Halaman Tidak Ditemukan | Garuda Organizer"
+          meta_description="Halaman yang Anda cari tidak ditemukan. Kembali ke beranda Garuda Organizer untuk melihat layanan event kami."
+          noindex
+        />
         <div className="min-h-screen flex flex-grow items-center justify-center bg-gray-50">
         <div className="rounded-lg bg-white p-8 text-center shadow-xl">
             <h1 className="mb-4 text-4xl font-bold">404</h1>
@@ -9,6 +16,7 @@ const NotFound = () => {
             <Link to="/" className="mt-4 inline-block rounded bg-blue-600 px-4 py-2 font-semibold text-white hover:bg-blue-600"> Go back to Home </Link>
         </div>
         </div>
+      </>
     )
 }
 export default NotFound;

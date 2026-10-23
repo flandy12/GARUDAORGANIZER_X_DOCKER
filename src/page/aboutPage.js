@@ -35,12 +35,11 @@ const AboutPage = () => {
     return (
     <>
       <SEO 
-        title={'Garuda Organizer'}
-        meta_description={''}
-        meta_keywords={''}
-        author={'Garuda Organizer'}
-        url={window.location.href}
-        og_image={`/public/favicon.ico`}
+        title="Tentang Garuda Organizer | Event Organizer Jakarta"
+        meta_description="Kenali Garuda Organizer, perusahaan event organizer profesional di Jakarta yang menghadirkan solusi acara kreatif, terencana, dan berpengalaman."
+        meta_keywords="tentang Garuda Organizer, perusahaan event organizer Jakarta, EO profesional, event management Indonesia"
+        canonical="/about"
+        og_image={benner || "/images/asset/about-asset.png"}
         />
          {loading === true ? <Loading/> : (
              <div >
@@ -51,9 +50,9 @@ const AboutPage = () => {
                     <img className="object-cover absolute inset-0 size-full opacity-50" src={`${process.env.REACT_APP_URL_IMG}${benner}`}alt="Exhibition & Expo" loading="lazy" />
                     </picture> 
                     <div className="flex relative flex-col mt-40 mb-28 max-w-full max-md:my-10">
-                    <div className="self-center text-6xl font-bold text-white max-md:max-w-full max-md:text-4xl">
+                    <h1 className="self-center text-6xl font-bold text-white max-md:max-w-full max-md:text-4xl">
                         About Us
-                    </div>
+                    </h1>
                     <div className="mt-10 text-base text-center w-[726px] text-white text-opacity-80 max-md:mt-10 max-md:max-w-full" dangerouslySetInnerHTML={createMarkup(message === 'null' ? "" : message)} />
                     </div>
                     </div>

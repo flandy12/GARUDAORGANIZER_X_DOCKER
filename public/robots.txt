@@ -1,4 +1,7 @@
 User-agent: *
-Disallow:
+Allow: /
+
+Disallow: /success
 
 Sitemap: https://www.garudaorganizer.com/sitemap.xml
+Host: https://www.garudaorganizer.com

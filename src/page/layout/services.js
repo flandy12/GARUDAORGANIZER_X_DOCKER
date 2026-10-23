@@ -5,8 +5,52 @@ import CallApi from "../../api/Api";
 import { createMarkup, scrollToTop } from "../../compoments/htmlTag";
 import { useParams } from "react-router-dom";
 
+const serviceSeo = {
+  "recruitment-event": {
+    title: "Recruitment Event Profesional | Garuda Organizer",
+    description:
+      "Solusi recruitment event profesional untuk job fair, campus hiring, dan employer branding dengan perencanaan serta pelaksanaan acara yang terintegrasi.",
+    keywords:
+      "recruitment event, job fair organizer, campus hiring, employer branding, event organizer rekrutmen",
+    image: "/images/asset/recruitment-bg.jpg",
+  },
+  "corporate-hiring": {
+    title: "Corporate Hiring Program | Garuda Organizer",
+    description:
+      "Program corporate hiring terintegrasi untuk membantu perusahaan menjangkau kandidat, membangun employer brand, dan menjalankan proses rekrutmen efektif.",
+    keywords:
+      "corporate hiring program, hiring event, employer branding, rekrutmen perusahaan, job fair perusahaan",
+    image: "/images/asset/corporate-hiring-bg.jpg",
+  },
+  mice: {
+    title: "Jasa MICE & Brand Activation | Garuda Organizer",
+    description:
+      "Jasa MICE profesional untuk meeting, incentive, convention, exhibition, dan brand activation dengan konsep kreatif serta eksekusi acara menyeluruh.",
+    keywords:
+      "jasa MICE Jakarta, meeting incentive convention exhibition, brand activation, event organizer MICE",
+    image: "/images/asset/mice-bg.jpg",
+  },
+  "digital-services": {
+    title: "Digital Event Services | Garuda Organizer",
+    description:
+      "Layanan digital event untuk acara online dan hybrid, mulai dari konsep, produksi, aktivasi digital, hingga pengalaman audiens yang interaktif.",
+    keywords:
+      "digital event services, virtual event, hybrid event, event online, digital activation",
+    image: "/images/asset/digital-services-bg.jpg",
+  },
+};
+
+const fallbackSeo = {
+  title: "Layanan Event Organizer | Garuda Organizer",
+  description:
+    "Temukan layanan event organizer Garuda Organizer untuk kebutuhan MICE, corporate event, recruitment event, dan digital services.",
+  keywords: "layanan event organizer, EO Jakarta, event management, MICE Indonesia",
+  image: "/images/asset/asset-bg.jpg",
+};
+
 const LayoutPageServices = ({}) => {
   const { url } = useParams();
+  const seo = serviceSeo[url] || fallbackSeo;
   const [loading, setLoading] = useState(true);
   const [title, setTitle] = useState("");
   const [banner, setBanner] = useState("");
@@ -33,7 +77,7 @@ const LayoutPageServices = ({}) => {
         setTitle(ressponse.results ? ressponse.results.title : "");
       }
     });
-  }, []);
+  }, [url]);
 
   const MouseHover = e => {
     e.preventDefault();
@@ -43,12 +87,21 @@ const LayoutPageServices = ({}) => {
   return (
     <>
       <SEO
-        title={"Garuda Organizer"}
-        meta_description={""}
-        meta_keywords={""}
-        author={"Garuda Organizer"}
-        url={window.location.href}
-        og_image={`/public/favicon.ico`}
+        title={seo.title}
+        meta_description={seo.description}
+        meta_keywords={seo.keywords}
+        canonical={`/service/${url}`}
+        og_image={banner || seo.image}
+        schema={{
+          "@type": "Service",
+          name: title || seo.title.replace(" | Garuda Organizer", ""),
+          description: seo.description,
+          url: `https://www.garudaorganizer.com/service/${url}`,
+          areaServed: { "@type": "Country", name: "Indonesia" },
+          provider: {
+            "@id": "https://www.garudaorganizer.com/#organization",
+          },
+        }}
       />
       {loading === false ? (
         <>
@@ -63,9 +116,9 @@ const LayoutPageServices = ({}) => {
               />
             </picture>
             <div className="flex relative flex-col mt-40 mb-28 max-w-full  max-md:my-10">
-              <div className="self-center text-6xl font-bold text-white max-md:max-w-full max-md:text-4xl">
+              <h1 className="self-center text-6xl font-bold text-white max-md:max-w-full max-md:text-4xl">
                 {title}
-              </div>
+              </h1>
               <div
                 className="mt-10 text-base text-center w-[726px] text-white text-opacity-80 max-md:mt-10 max-md:max-w-full"
                 dangerouslySetInnerHTML={createMarkup(
@@ -107,7 +160,7 @@ const LayoutPageServices = ({}) => {
               </div>
               <div className="w-full max-md:mt-10 max-md:max-w-full">
                 <div className="my-8 text-2xl font-semibold  text-blue-500 uppercase max-md:mt-10 max-md:max-w-full">
-                  {other_images.length > 0 ? <h1>Project</h1> : ""}
+                  {other_images.length > 0 ? <h2>Project</h2> : ""}
                 </div>
                 <div className="flex justify-between gap-5 max-md:flex-col max-md:gap-0">
                   <div className="flex max-md:flex-col justify-between gap-5 w-full">

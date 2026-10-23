@@ -45,12 +45,11 @@ const DigitalPage = () => {
     return (
       <>
         <SEO 
-            title={'Garuda Organizer'}
-            meta_description={''}
-            meta_keywords={''}
-            author={'Garuda Organizer'}
-            url={window.location.href}
-            og_image={`/public/favicon.ico`}
+            title="Digital Event Services | Garuda Organizer"
+            meta_description="Layanan digital event untuk acara online dan hybrid, mulai dari konsep, produksi, aktivasi digital, hingga pengalaman audiens interaktif."
+            meta_keywords="digital event services, virtual event, hybrid event, event online, digital activation"
+            canonical="/service/digital-services"
+            og_image={banner || "/images/asset/digital-services-bg.jpg"}
             />
        {
         loading === false ? (

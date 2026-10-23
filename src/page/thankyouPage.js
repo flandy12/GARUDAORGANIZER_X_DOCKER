@@ -1,5 +1,13 @@
+import SEO from "../compoments/seo";
+
 const ThankyouPage = () => {
     return (
+      <>
+        <SEO
+          title="Registrasi Berhasil | Garuda Organizer"
+          meta_description="Konfirmasi registrasi acara Garuda Organizer."
+          noindex
+        />
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
             <div class="bg-white p-8 rounded-2xl shadow-md text-center max-w-lg">
                 <div class="flex justify-center mb-4">
@@ -17,6 +25,7 @@ const ThankyouPage = () => {
                 </a>
             </div>
         </div>
+      </>
     );
 }
 

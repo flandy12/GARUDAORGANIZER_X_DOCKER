@@ -50,12 +50,11 @@ const CorporateHiringPage = () => {
     return (
         <>
             <SEO 
-            title={'Garuda Organizer'}
-            meta_description={''}
-            meta_keywords={''}
-            author={'Garuda Organizer'}
-            url={window.location.href}
-            og_image={`/public/favicon.ico`}
+            title="Corporate Hiring Program | Garuda Organizer"
+            meta_description="Program corporate hiring untuk membantu perusahaan menjangkau kandidat, membangun employer brand, dan menjalankan proses rekrutmen efektif."
+            meta_keywords="corporate hiring program, hiring event, employer branding, rekrutmen perusahaan"
+            canonical="/service/corporate-hiring"
+            og_image="/images/asset/corporate-hiring-bg.jpg"
             />
             {loading === false ? (
                 <>

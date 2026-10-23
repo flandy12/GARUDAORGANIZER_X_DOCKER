@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import CallApi from "../api/Api";
 import { Loading } from "../compoments/loading";
+import SEO from "../compoments/seo";
 
 const ContactUs = () => {
   const [loading, setLoading] = useState (true);
@@ -26,7 +27,7 @@ const ContactUs = () => {
 const  handleSubmit = (e) =>{
     let elementError = document.querySelectorAll('.error_text');
     for (let index = 0; index < elementError.length; index++) {
-        elementError[index].innerHTML = '';
+        elementError[index].textContent = '';
     }
     
     e.preventDefault();
@@ -51,7 +52,7 @@ const  handleSubmit = (e) =>{
         } else {
             Object.entries(ress.errors).forEach((key, value) => {
                 let element = document.getElementById(`${key[0]}_error`);
-                element.innerHTML = key[1][0];
+                if (element) element.textContent = key[1][0];
             });
             setOnSubmitBtn(false);
             console.log(ress);
@@ -62,6 +63,21 @@ const  handleSubmit = (e) =>{
 
     return (
       <>
+        <SEO
+          title="Hubungi Garuda Organizer | Konsultasi Event"
+          meta_description="Konsultasikan kebutuhan MICE, corporate event, recruitment event, atau digital event Anda bersama tim Garuda Organizer di Jakarta."
+          meta_keywords="kontak Garuda Organizer, konsultasi event Jakarta, jasa EO Jakarta, konsultasi MICE"
+          canonical="/contact"
+          og_image="/images/asset/contact.jpg"
+          schema={{
+            "@type": "ContactPage",
+            name: "Hubungi Garuda Organizer",
+            url: "https://www.garudaorganizer.com/contact",
+            mainEntity: {
+              "@id": "https://www.garudaorganizer.com/#organization",
+            },
+          }}
+        />
         <div className="container mx-auto xl:px-5 lg:px-5 md:px-5 px-5">
             <div className="justify-center items-stretch bg-neutral-700 flex flex-col">
                   <div className="bg-white flex w-full flex-col justify-center items-stretch px-px max-md:max-w-full">
@@ -70,9 +86,9 @@ const  handleSubmit = (e) =>{
                         <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
                           <div className="flex flex-col items-stretch w-[42%] max-md:w-full max-md:ml-0">
                             <div className="flex flex-col items-stretch mt-3.5 px-5 max-md:mt-10">
-                              <div className="justify-center text-neutral-900 xl:text-5xl lg:text-3xl md:text-3xl text-xl font-bold xl:leading-[53px] lg:leading-[39px] leading-[39px] max-md:text-4xl">
+                              <h1 className="justify-center text-neutral-900 xl:text-5xl lg:text-3xl md:text-3xl text-xl font-bold xl:leading-[53px] lg:leading-[39px] leading-[39px] max-md:text-4xl">
                               Contact Our Team
-                              </div>
+                              </h1>
                               <div className="justify-center text-neutral-500 text-base leading-7 mt-9">
                               Don't hesitate to contact our team and share your ideas,
                                 <br />

@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">  
-    <url>
-    <loc>https://www.garudaorganizer.com</loc>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://www.garudaorganizer.com/</loc>
+    <lastmod>2026-10-24</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>1.0</priority>
   </url>
-
   <url>
     <loc>https://www.garudaorganizer.com/about</loc>
-    <changefreq>weekly</changefreq>
+    <lastmod>2026-10-24</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
   <url>
-   <loc>https://www.garudaorganizer.com/service/recruitment-event</loc>
-     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://www.garudaorganizer.com/service/recruitment-event</loc>
+    <lastmod>2026-10-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
   </url>
-
   <url>
-   <loc>https://www.garudaorganizer.com/service/corporate-hiring</loc>
-     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://www.garudaorganizer.com/service/corporate-hiring</loc>
+    <lastmod>2026-10-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
   </url>
-
-   <url>
-   <loc>https://www.garudaorganizer.com/service/mice</loc>
-     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
   <url>
-   <loc>https://www.garudaorganizer.com/service/digital-services</loc>
-     <changefreq>weekly</changefreq>
+    <loc>https://www.garudaorganizer.com/service/mice</loc>
+    <lastmod>2026-10-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.garudaorganizer.com/service/digital-services</loc>
+    <lastmod>2026-10-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.garudaorganizer.com/portofolio</loc>
+    <lastmod>2026-10-24</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
-   <url>
-   <loc>https://www.garudaorganizer.com/portofolio</loc>
-     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+  <url>
+    <loc>https://www.garudaorganizer.com/contact</loc>
+    <lastmod>2026-10-24</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
   </url>
-
-   <url>
-   <loc>https://www.garudaorganizer.com/contact</loc>
-     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
 </urlset>

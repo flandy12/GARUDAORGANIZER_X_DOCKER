@@ -51,12 +51,16 @@ const PortofolioPage = () => {
         <>
    
         <SEO 
-            title={'Garuda Organizer'}
-            meta_description={''}
-            meta_keywords={''}
-            author={'Garuda Organizer'}
-            url={window.location.href}
-            og_image={`/public/favicon.ico`}
+            title="Portofolio Event & MICE | Garuda Organizer"
+            meta_description="Lihat portofolio Garuda Organizer dalam menangani recruitment event, corporate event, MICE, konser, gathering, dan acara hybrid untuk berbagai klien."
+            meta_keywords="portofolio event organizer, proyek MICE, corporate event Jakarta, recruitment event, event hybrid"
+            canonical="/portofolio"
+            og_image="/images/asset/asset-bg.jpg"
+            schema={{
+              "@type": "CollectionPage",
+              name: "Portofolio Garuda Organizer",
+              url: "https://www.garudaorganizer.com/portofolio",
+            }}
             />
        
         {loading !== true ? (
@@ -68,9 +72,9 @@ const PortofolioPage = () => {
                     <div className="mx-auto text-center text-blue-600 text-sm font-bold leading-6 tracking-wide uppercase whitespace-nowrap items-stretch bg-sky-100 px-4 py-3 rounded-lg self-start max-w-[160px]">
                     Our Project
                     </div>
-                    <h2 className="text-slate-700 xl:text-5xl lg:text-3xl text-3xl text-center font-bold xl:leading-[53px] lg:leading-[39px] leading-[39px] tracking-normal capitalize max-w-[900px]" data-animation="slide-top">
+                    <h1 className="text-slate-700 xl:text-5xl lg:text-3xl text-3xl text-center font-bold xl:leading-[53px] lg:leading-[39px] leading-[39px] tracking-normal capitalize max-w-[900px]" data-animation="slide-top">
                     {title === '' ? ' An Epic Journey Through Events Full of Surprises and Inspiration!' : title} 
-                    </h2>
+                    </h1>
                 </div>
                 
                 <div className="">
