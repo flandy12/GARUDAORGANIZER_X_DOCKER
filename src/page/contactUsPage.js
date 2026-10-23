@@ -1,162 +1,128 @@
 import { useEffect, useState } from "react";
 import CallApi from "../api/Api";
 import { Loading } from "../compoments/loading";
+import { scrollToTop } from "../compoments/htmlTag";
+import SEO from "../compoments/seo";
 
 const ContactUs = () => {
-  const [loading, setLoading] = useState (true);
-  const [onSubmitBtn , setOnSubmitBtn] = useState(false);
-  const [contactUsInformation , setContactUsInformation] = useState(false)
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
+  const [contact, setContact] = useState({});
+  const [errors, setErrors] = useState({});
+
   useEffect(() => {
-    CallApi('contact-us-information', 'GET', {
+    let isMounted = true;
+    scrollToTop();
+
+    CallApi("contact-us-information", "GET", {
       headers: {
-        'Accept': 'application/json',
-        'Authorization' : `Bearer ${process.env.REACT_APP_URL_API_KEY}`
+        Accept: "application/json",
+        Authorization: `Bearer ${process.env.REACT_APP_URL_API_KEY}`,
       },
     })
-    .then(ressponse => {
-       if(ressponse.success === true) {
-            setLoading(false);
-            setContactUsInformation(ressponse.results)
-       } else {
-        alert('Error Page');
-       }
+      .then(response => {
+        if (!isMounted) return;
+        if (response.success === true) setContact(response.results || {});
+        else window.alert("Error Page");
+      })
+      .catch(() => window.alert("Error Page"))
+      .finally(() => isMounted && setLoading(false));
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    setErrors({});
+    setSubmitting(true);
+
+    const formData = new FormData(event.currentTarget);
+    CallApi("contact-us/send", "POST", {
+      headers: { Accept: "application/json" },
+      body: formData,
     })
-}, [])
-
-const  handleSubmit = (e) =>{
-    let elementError = document.querySelectorAll('.error_text');
-    for (let index = 0; index < elementError.length; index++) {
-        elementError[index].innerHTML = '';
-    }
-    
-    e.preventDefault();
-    setOnSubmitBtn(true);
-    let formdata = new FormData();
-    formdata.append('full_name', e.target.full_name.value);
-    formdata.append('email', e.target.email.value);
-    formdata.append('phone_number', e.target.phone_number.value);
-    formdata.append('company_name', e.target.company_name.value);
-    formdata.append('body_message', e.target.body_message.value);
-
-    CallApi('contact-us/send', 'POST', {
-      headers: {
-        'Accept': 'application/json',
-      },
-      body : formdata
-    }).then(ress => {
-        if(ress.success === true) {
-            alert(ress.title);
-            setOnSubmitBtn(false);
-            console.log(ress);
+      .then(response => {
+        if (response.success === true) {
+          window.alert(response.title);
+          event.target.reset();
         } else {
-            Object.entries(ress.errors).forEach((key, value) => {
-                let element = document.getElementById(`${key[0]}_error`);
-                element.innerHTML = key[1][0];
-            });
-            setOnSubmitBtn(false);
-            console.log(ress);
+          const safeErrors = {};
+          Object.entries(response.errors || {}).forEach(([field, messages]) => {
+            safeErrors[field] = Array.isArray(messages) ? messages[0] : String(messages);
+          });
+          setErrors(safeErrors);
         }
-    })
+      })
+      .catch(() => window.alert("Error Page"))
+      .finally(() => setSubmitting(false));
+  };
 
-  }
+  const ErrorText = ({ name }) => errors[name] ? <p className="contact-form__error">{errors[name]}</p> : null;
 
-    return (
-      <>
-        <div className="container mx-auto xl:px-5 lg:px-5 md:px-5 px-5">
-            <div className="justify-center items-stretch bg-neutral-700 flex flex-col">
-                  <div className="bg-white flex w-full flex-col justify-center items-stretch px-px max-md:max-w-full">
-                    <div className="bg-white flex flex-col items-stretch max-md:max-w-full">
-                      <div className="self-center w-full my-24 max-md:max-w-full max-md:mt-10 ">
-                        <div className="gap-5 flex max-md:flex-col max-md:items-stretch max-md:gap-0">
-                          <div className="flex flex-col items-stretch w-[42%] max-md:w-full max-md:ml-0">
-                            <div className="flex flex-col items-stretch mt-3.5 px-5 max-md:mt-10">
-                              <div className="justify-center text-neutral-900 xl:text-5xl lg:text-3xl md:text-3xl text-xl font-bold xl:leading-[53px] lg:leading-[39px] leading-[39px] max-md:text-4xl">
-                              Contact Our Team
-                              </div>
-                              <div className="justify-center text-neutral-500 text-base leading-7 mt-9">
-                              Don't hesitate to contact our team and share your ideas,
-                                <br />
-                                questions, or needs. We're here to help make any challenges you face a reality. Together, let's find the right solution to meet your needs!
-                              </div>
-                              <div className="justify-center text-neutral-900 text-lg font-bold leading-5 mt-10">
-                                Contact us via:
-                              </div>
-                              <div className="flex items-stretch justify-between gap-2.5 mt-5">
-                                <img
-                                  loading="lazy"
-                                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/cf2e8d5aa063346244ee958662cf702c38f3f950ad9920d16c7c497c9a771d63?"
-                                  className="aspect-[0.75] object-contain object-center w-[21px] justify-center items-center overflow-hidden shrink-0 max-w-full"
-                                  alt="icon-email"
-                                />
-                                <div className="justify-center text-neutral-500 text-lg leading-5 self-center grow shrink basis-auto my-auto">
-                                {contactUsInformation.to_email} 
-                                </div>
-                              </div>
-                          
-                            </div>
-                          </div>
-                          <div className="flex flex-col items-stretch w-[58%] ml-5 max-md:w-full max-md:ml-0">
-                            <form className="border shadow-sm bg-white flex grow flex-col w-full pt-12 px-12 rounded-xl border-solid border-zinc-100 max-md:max-w-full max-md:mt-10 max-md:px-5"  onSubmit={handleSubmit}>
-                              <div className="self-stretch xl:flex lg:block md:block justify-between xl:space-y-0 lg:space-y-5 space-y-5 gap-5 items-start max-md:max-w-full max-md:flex-wrap">
-                                <div className="flex grow basis-[0%] flex-col items-stretch">
-                                  <div className="justify-center text-neutral-900 text-sm font-semibold leading-4 tracking-wider uppercase">
-                                    Full Name
-                                  </div>
-                                  <input className="justify-center text-neutral-500 text-base whitespace-nowrap border shadow-sm bg-white mt-4 pl-5 pr-16 py-5 rounded-lg border-solid border-zinc-100 items-start max-md:pr-5" type="text"  name="full_name" />
-                                  <p id="full_name_error" className="mt-2 text-red-500 dark:text-red-500 error_text"></p>
-                                </div>
-                                <div className="self-stretch flex grow basis-[0%] flex-col items-stretch">
-                                  <div className="justify-center text-neutral-900 text-sm font-semibold leading-4 tracking-wider uppercase">
-                                    Email Address
-                                  </div>
-                                  <input className="justify-center text-neutral-500 text-base whitespace-nowrap border shadow-sm bg-white mt-4 pl-5 pr-16 py-5 rounded-lg border-solid border-zinc-100 items-start max-md:pr-5" type="email"  name="email"/>
-                                  <p id="email_error" className="mt-2 text-red-500 dark:text-red-500 error_text"></p>
-                                </div>
-                              </div>
-                              <div className="self-stretch xl:flex lg:block md:block items-stretch justify-between gap-5 mt-8 max-md:max-w-full max-md:flex-wrap  xl:space-y-0 lg:space-y-5 space-y-5">
-                                <div className="flex grow basis-[0%] flex-col items-stretch xl:space-y-5 lg:space-y-5 space-y-5">
-                                  <div className="justify-center text-neutral-900 text-sm font-semibold leading-4 tracking-wider uppercase">
-                                    Phone
-                                  </div>
-                                  <input className="justify-center text-neutral-500 text-base whitespace-nowrap border shadow-sm bg-white mt-4 pl-5 pr-16 py-5 rounded-lg border-solid border-zinc-100 items-start max-md:pr-5" type="text" name="phone_number"/>
-                                  <p id="phone_number_error" className="mt-2 text-red-500 dark:text-red-500 error_text"></p>
-                                </div>
-                                <div className="flex grow basis-[0%] flex-col items-stretch xl:space-y-5 lg:space-y-5 space-y-5">
-                                  <div className="justify-center text-neutral-900 text-sm font-semibold leading-4 tracking-wider uppercase">
-                                    Company 
-                                  </div>
-                                  <input className="justify-center text-neutral-500 text-base whitespace-nowrap border shadow-sm bg-white mt-4 pl-5 pr-16 py-5 rounded-lg border-solid border-zinc-100 items-start max-md:pr-5" type="text" name="company_name" />
-                                  <p id="company_name_error" className="mt-2 text-red-500 dark:text-red-500 error_text"></p>
-                                </div>
-                              </div>
-                              <div className="justify-center text-neutral-900 text-sm font-semibold leading-4 tracking-wider uppercase self-stretch mt-8 max-md:max-w-full">
-                                Leave us a message
-                              </div>
-                              <textarea className="border shadow-sm bg-white self-stretch flex shrink-0 h-[140px] flex-col mt-4 rounded-lg border-solid border-zinc-100 max-md:max-w-full p-5" name="body_message"></textarea>
-                              <p id="body_message_error" className="mt-2 text-red-500 dark:text-red-500 error_text"></p>
-
-                              {onSubmitBtn !== true ? (
-                                <button className="justify-center text-white text-center text-base font-bold leading-5 whitespace-nowrap items-stretch bg-blue-500  px-7 rounded-lg self-start max-md:px-5 py-5 my-8" type="submit">
-                                Send Message
-                                </button>
-                              ) :  <button disabled="" type="button" className="justify-center text-white text-center text-base font-bold leading-5 whitespace-nowrap items-stretch bg-blue-500  px-7 rounded-lg self-start max-md:px-5 py-5 my-8">
-                              <svg aria-hidden="true" role="status" className="inline mr-3 w-4 h-4 text-white animate-spin" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="#E5E7EB"></path>
-                              <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentColor"></path>
-                              </svg>
-                              Loading...
-                            </button>}
-
-                            </form>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+  return (
+    <>
+      <SEO
+        title="Garuda Organizer"
+        meta_description=""
+        meta_keywords=""
+        author="Garuda Organizer"
+        url={window.location.href}
+        og_image="/favicon.ico"
+      />
+      {loading ? (
+        <Loading />
+      ) : (
+        <main className="contact-page">
+          <section className="landing-shell contact-layout">
+            <div className="contact-intro">
+              <span className="landing-eyebrow">Contact</span>
+              <h1>Contact Our Team</h1>
+              <p>Don't hesitate to contact our team and share your ideas, questions, or needs. We're here to help make any challenges you face a reality. Together, let's find the right solution to meet your needs!</p>
+              <strong>Contact us via:</strong>
+              <a href={`mailto:${contact.to_email || ""}`} className="contact-email">
+                <span aria-hidden="true">✉</span>{contact.to_email}
+              </a>
             </div>
-        </div>
-      </>
-    )
-}
+
+            <form className="contact-form" onSubmit={handleSubmit} noValidate>
+              <div className="contact-form__grid">
+                <label>
+                  <span>Full Name</span>
+                  <input type="text" name="full_name" autoComplete="name" required />
+                  <ErrorText name="full_name" />
+                </label>
+                <label>
+                  <span>Email Address</span>
+                  <input type="email" name="email" autoComplete="email" required />
+                  <ErrorText name="email" />
+                </label>
+                <label>
+                  <span>Phone</span>
+                  <input type="tel" name="phone_number" autoComplete="tel" inputMode="tel" required />
+                  <ErrorText name="phone_number" />
+                </label>
+                <label>
+                  <span>Company</span>
+                  <input type="text" name="company_name" autoComplete="organization" />
+                  <ErrorText name="company_name" />
+                </label>
+              </div>
+              <label className="contact-form__message">
+                <span>Leave us a message</span>
+                <textarea name="body_message" rows="6" required />
+                <ErrorText name="body_message" />
+              </label>
+              <button className="contact-form__submit" type="submit" disabled={submitting}>
+                {submitting ? <><span className="contact-form__spinner" aria-hidden="true" />Loading...</> : <>Send Message <span aria-hidden="true">↗</span></>}
+              </button>
+            </form>
+          </section>
+        </main>
+      )}
+    </>
+  );
+};
 
 export default ContactUs;

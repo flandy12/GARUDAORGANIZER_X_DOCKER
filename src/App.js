@@ -2,26 +2,18 @@ import "./App.css";
 import "./index.css";
 import "./css/style.css";
 import "./css/animation.min.css";
+import "./css/landing.css";
 import { Route, Routes } from "react-router-dom";
 import HomePage from "./page/home";
 import PortofolioPage from "./page/portofolioPage";
-import ServicesPage from "./page/servicePage";
 import ContactUs from "./page/contactUsPage";
 import { HelmetProvider } from "react-helmet-async";
-import MicePage from "./page/mice";
-import RecruitmentPage from "./page/recruitmentPage";
-import DigitalPage from "./page/digitalPage";
-import CorporateHiringPage from "./page/corporateHiringPage";
 import AboutPage from "./page/aboutPage";
 import Layout from "./page/layout";
 import SEO from "./compoments/seo";
 import NotFound from "./page/error/error_404";
-import MaintenancePage from "./page/error/maintenance";
-import { useEffect, useState } from "react";
 import LayoutPageServices from "./page/layout/services";
-import HabitatPage from "./page/habitat";
 import ThankyouPage from "./page/thankyouPage";
-import OfflinePage from "./page/offlineRegisterPage";
 
 function App() {
   // const [ip, setIP] = useState("");

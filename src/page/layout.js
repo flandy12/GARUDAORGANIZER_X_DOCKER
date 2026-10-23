@@ -9,16 +9,24 @@ const Layout = ({children}) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
+    let isMounted = true;
+
     CallApi('contact-us-information', 'GET', {
       headers: {
         'Accept': 'application/json',
         'Authorization' : `Bearer ${process.env.REACT_APP_URL_API_KEY}`
       },
     }).then(ress => {
-        
-        setData(ress.results);
- 
-    })
+        if (isMounted && ress.success === true) {
+          setData(ress.results || {});
+        }
+    }).catch(() => {
+      if (isMounted) setData({});
+    });
+
+    return () => {
+      isMounted = false;
+    };
   }, [])
     return (
         <>

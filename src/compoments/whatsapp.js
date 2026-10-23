@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 
 const Whatsapp = (props) => {
     return (
-        <div className="fixed bottom-5 right-10 z-50 w-16 h-16 bg-green-500 rounded-full flex items-center justify-center shadow-lg">
+        <div className="site-whatsapp fixed z-50 bg-green-500 rounded-full flex items-center justify-center">
            
-            <Link to={`https://wa.me/${props.data}?text=Hai%20Garuda%20Organizer,%20saya%20ingin%20bertanya%20tentang...%20`} target="_blank" className="whatsapp-button ">
+            <Link to={`https://wa.me/${props.data}?text=Hai%20Garuda%20Organizer,%20saya%20ingin%20bertanya%20tentang...%20`} target="_blank" rel="noopener noreferrer" className="whatsapp-button" aria-label="WhatsApp Garuda Organizer">
             {/* <img src="/images/icon/Whatsapp.png" alt="" className="w-full h-full"/> */}
             <svg data-bbox="0.3 0.396 45.314 45.304" viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg" data-type="color" className="w-10 h-10">
                 <g>

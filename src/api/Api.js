@@ -13,7 +13,7 @@ async function CallApi(url, method, data = {}) {
         },
     }
 
-    Object.keys(data).map((value, key) => {
+    Object.keys(data).forEach((value) => {
         Headers[value] = data[value]
     });
 

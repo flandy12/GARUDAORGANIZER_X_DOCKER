@@ -109,9 +109,9 @@ const HabitatPage = () =>{
       };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen z-[100] relative bg-gray-100 p-10">
+        <div className="registration-page flex flex-col items-center justify-center min-h-screen z-[100] relative bg-gray-100 p-10">
           
-        <form className="xl:max-w-xl lg:max-w-lg md:max-w-md sm:max-w-sm mx-auto bg-white p-5 xl:my-10 lg:my-10 md:my-10 sm:m-10 relative z-10" onSubmit={handleSubmit}>
+        <form className="registration-form xl:max-w-xl lg:max-w-lg md:max-w-md sm:max-w-sm mx-auto bg-white p-5 xl:my-10 lg:my-10 md:my-10 sm:m-10 relative z-10" onSubmit={handleSubmit}>
          <img src="/images/asset/asset-bg.jpg" alt="Logo Habitat" className="mb-10" />
             <h1 className="text-xl font-bold text-center mb-5 text-gray-800">Formulir Pendaftaran Job Fair Bidang Konstruksi Kabupaten Tangerang 2025</h1>
               
