@@ -1,0 +1,14 @@
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+      args:
+        REACT_APP_URL_API: "${REACT_APP_URL_API:-https://cms.garudaorganizer.com/api/}"
+        REACT_APP_URL_API_KEY: "${REACT_APP_URL_API_KEY:-}"
+        REACT_APP_URL_IMG: "${REACT_APP_URL_IMG:-https://cms.garudaorganizer.com/}"
+        REACT_APP_MAINTENANCE: "${REACT_APP_MAINTENANCE:-false}"
+    container_name: garudaorganizer_frontend
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3000:80"

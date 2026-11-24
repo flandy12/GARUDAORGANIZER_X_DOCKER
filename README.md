@@ -1,5 +1,21 @@
 # Getting Started with Create React App
 
+## Production deployment: garudaorganizer.com
+
+Panduan lengkap tersedia di [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md), termasuk
+DNS, konfigurasi environment, Docker, Nginx, SSL, update, rollback, validasi,
+dan troubleshooting.
+
+Quick start setelah DNS dan konfigurasi VPS siap:
+
+```bash
+cp .env.production.example .env.production
+docker compose --env-file .env.production -f compose.prod.yml build --pull
+docker compose --env-file .env.production -f compose.prod.yml up -d
+docker compose --env-file .env.production -f compose.prod.yml ps
+curl -I http://127.0.0.1:3000
+```
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
